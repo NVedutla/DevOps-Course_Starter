@@ -1,15 +1,24 @@
-from flask import Flask, render_template
-
+from flask import Flask, render_template, redirect, request
 from todo_app.flask_config import Config
+import todo_app.data.session_items as session_items
 
 app = Flask(__name__)
 app.config.from_object(Config)
 
-
 @app.route('/')
 def index():
-    #return 'Hello World!'
-    return render_template("index.html")
+    items = session_items.get_items()
+
+    return render_template('index.html', items=items) 
+
+
+@app.route('/additem',  methods=['POST'])
+def add_item():
+    new_title = request.form.get("newItem")
+
+    session_items.add_item(new_title)
+
+    return redirect("/")
 
 
 if __name__ == '__main__':
