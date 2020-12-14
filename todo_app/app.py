@@ -1,15 +1,29 @@
 from flask import Flask, render_template, redirect, request
 from todo_app.flask_config import Config
 import todo_app.data.session_items as session_items
+import requests
 
 app = Flask(__name__)
 app.config.from_object(Config)
 
 @app.route('/')
 def index():
-    items = session_items.get_items()
+    url = "https://api.trello.com/1/boards/BOARD_ID_GOES_HERE/cards"
 
-    return render_template('index.html', items=items) 
+    query = {
+        'key': 'YOUR_KEY',
+        'token': 'YOUR_TOKEN'
+    }
+
+    response = requests.request(
+        "GET",
+        url,
+        params=query
+    )
+
+    data_dictionary = response.json()
+
+    return render_template('index.html') 
 
 
 @app.route('/additem',  methods=['POST'])
