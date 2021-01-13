@@ -3,6 +3,7 @@ from todo_app.flask_config import Config
 import todo_app.data.session_items as session_items
 import requests
 import os
+from todo_app.data.todo_item import TodoItem
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -23,6 +24,8 @@ def index():
     )
 
     data_dictionary = response.json()
+
+    
 
     return render_template('index.html') 
 
