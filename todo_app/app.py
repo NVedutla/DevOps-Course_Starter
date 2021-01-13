@@ -2,17 +2,18 @@ from flask import Flask, render_template, redirect, request
 from todo_app.flask_config import Config
 import todo_app.data.session_items as session_items
 import requests
+import os
 
 app = Flask(__name__)
 app.config.from_object(Config)
 
 @app.route('/')
 def index():
-    url = "https://api.trello.com/1/boards/BOARD_ID_GOES_HERE/cards"
+    url = f"https://api.trello.com/1/boards/{os.environ.get('TRELLO_BOARD_ID')}/cards"
 
     query = {
-        'key': 'YOUR_KEY',
-        'token': 'YOUR_TOKEN'
+        'key': os.environ.get("TRELLO_KEY"),
+        'token': os.environ.get("TRELLO_TOKEN")
     }
 
     response = requests.request(
