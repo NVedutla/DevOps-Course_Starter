@@ -23,18 +23,35 @@ def index():
         params=query
     )
 
-    data_dictionary = response.json()
+    #class_to_do = TodoItem()
+   
+    #for loop here
+    #list of cards
+    trello_cards = response.json()
+    todo_items = [] # List of TodoItem
 
-    
+    for card in trello_cards:
+        item = TodoItem.from_trello_card(card)
+        todo_items.append(item)
 
-    return render_template('index.html') 
+    return render_template('index.html', todo_items = todo_items)
 
 
 @app.route('/additem',  methods=['POST'])
 def add_item():
-    new_title = request.form.get("newItem")
+    url = f"https://api.trello.com/1/cards"
 
-    session_items.add_item(new_title)
+    query = {
+        'key': os.environ.get("TRELLO_KEY"),
+        'token': os.environ.get("TRELLO_TOKEN"),
+        'name': request.form.get("newItem"),
+        'listId': 'WHAT AM I??'
+    }
+
+    response = requests.post(
+        url,
+        params=query
+    )
 
     return redirect("/")
 
