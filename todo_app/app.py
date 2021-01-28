@@ -1,12 +1,10 @@
 from flask import Flask, render_template, redirect, request
 from todo_app.flask_config import Config
-import todo_app.data.session_items as session_items
 import requests
 import os
 from todo_app.data.todo_item import TodoItem
 
 app = Flask(__name__)
-app.config.from_object(Config)
 
 @app.route('/')
 def index():
@@ -23,9 +21,7 @@ def index():
         params=query
     )
 
-    #class_to_do = TodoItem()
    
-    #for loop here
     #list of cards
     trello_cards = response.json()
     todo_items = [] # List of TodoItem
@@ -45,13 +41,35 @@ def add_item():
         'key': os.environ.get("TRELLO_KEY"),
         'token': os.environ.get("TRELLO_TOKEN"),
         'name': request.form.get("newItem"),
-        'listId': 'WHAT AM I??'
+        'idList': os.getenv("TRELLO_LIST_TODO_ID")
     }
 
-    response = requests.post(
+    response = requests.request(
+        "POST",
         url,
         params=query
     )
+
+    if response.status_code != 200:
+        raise Exception(f"Wrong status code returned for Trello request: {response}")
+
+@app.route('/complete-item',  methods=['POST'])
+def complete_item():
+    url = f"https://api.trello.com/1/cards/{request.form.get('todo-id')}"
+    #PUT /1/cards/{cardID}?idList={listID}        
+    query = {
+        'key': os.environ.get("TRELLO_KEY"),
+        'token': os.environ.get("TRELLO_TOKEN"),
+        'idList': os.getenv("TRELLO_LIST_DONE_ID")
+    }
+
+    response = requests.put(
+        url,
+        params=query
+    )
+
+    if response.status_code != 200:
+        raise Exception(f"Wrong status code returned for Trello request: {response}")
 
     return redirect("/")
 

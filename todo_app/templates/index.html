@@ -14,6 +14,12 @@
         <!-- List the todo items here -->
         {% for item in todo_items %}
           <li>{{ item.id }} - {{item.title}} - {{item.status}}</li>
+          <form action="complete-item" method="post" class="frmItem">
+            <div class="form-example">
+              <input type="text" name="todo-id" id="todo-id" value="{{ item.id }}" hidden>
+              <input type="submit" value="Complete item">
+            </div>
+          </form>
         {% endfor %} 
       </ul>
     </div>
