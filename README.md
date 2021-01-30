@@ -30,7 +30,13 @@ You'll also need to clone a new `.env` file from the `.env.tempalate` to store l
 $ cp .env.template .env  # (first time only)
 ```
 
-The `.env` file is used by flask to set environment variables when running `flask run`. This enables things like development mode (which also enables features like hot reloading when you make a file change). There's also a [SECRET_KEY](https://flask.palletsprojects.com/en/1.1.x/config/#SECRET_KEY) variable which is used to encrypt the flask session cookie.
+The `.env` file is used by flask to set environment variables when running `flask run`. This enables things like development mode (which also enables features like hot reloading when you make a file change).
+
+
+TRELLO provides a REST API, that can be used to create, read and update to-do items. 
+1. In order to make calls to TRELLO REST API, Developer API Keys need to be obtained and token generated. Details can be found on https://trello.com/app-key . 
+2. In this application, in order to execute the list, add and complete items, TRELLO_KEY and TRELLO_TOKEN need to be provided
+3. Use postman, https://web.postman.co/home, to find out the board id, to_do id, doing_id and done _id in order to obtain the values for constants - TRELLO_BOARD_ID, TRELLO_LIST_TODO_ID, TRELLO_LIST_DOING_ID and TRELLO_LIST_DONE_ID=
 
 ## Running the App
 
