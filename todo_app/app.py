@@ -1,5 +1,4 @@
 from flask import Flask, render_template, redirect, request
-from todo_app.flask_config import Config
 import requests
 import os
 from todo_app.data.todo_item import TodoItem
@@ -52,6 +51,8 @@ def add_item():
 
     if response.status_code != 200:
         raise Exception(f"Wrong status code returned for Trello request: {response}")
+    
+    return redirect("/")
 
 @app.route('/complete-item',  methods=['POST'])
 def complete_item():
