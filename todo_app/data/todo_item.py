@@ -23,3 +23,21 @@ class TodoItem:
             status = "Done"
 
         return cls(id, status, title)
+
+    @classmethod
+    def from_trello_card_type(cls, card, type):
+        id = card["id"]
+        title = card["name"]
+
+        id_list = card["idList"]
+
+        status = ""
+
+        if id_list == os.getenv("TRELLO_LIST_TODO_ID"):
+            status = "To Do"
+        elif id_list == os.getenv("TRELLO_LIST_DOING_ID"):
+            status = "Doing"
+        elif id_list == os.getenv("TRELLO_LIST_DONE_ID"):
+            status = "Done"
+
+        return cls(id, status, title)    
