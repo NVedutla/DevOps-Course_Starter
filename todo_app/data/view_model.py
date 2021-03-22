@@ -1,4 +1,5 @@
 from .todo_item import TodoItem
+import datetime
 
 class ViewModel:
     def __init__(self, items):
@@ -37,3 +38,35 @@ class ViewModel:
                 output.append(item)
 
         return output
+
+    @property
+    def show_done_items(self):
+        output = []
+
+        for item in self._items:
+
+            if item.status == "Done":
+                output.append(item)
+        if len( output) < 5:
+            return True
+        else:
+            return False    
+
+    @property
+    def recent_done_items(self):
+        output = []
+
+        for item in self._items:
+            if item.last_modified_date == datetime.date.today():
+                output.append(item)
+
+        return output  
+    @property
+    def older_done_items(self):
+        output = []
+
+        for item in self._items:
+            if item.last_modified_date < datetime.date.today():
+                output.append(item)
+
+        return output  
