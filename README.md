@@ -37,6 +37,10 @@ TRELLO provides a REST API, that can be used to create, read and update to-do it
 1. In order to make calls to TRELLO REST API, Developer API Keys need to be obtained and token generated. Details can be found on https://trello.com/app-key . 
 2. In this application, in order to execute the list, add and complete items, TRELLO_KEY and TRELLO_TOKEN need to be provided
 3. Use postman, https://web.postman.co/home, to find out the board id, to_do id, doing_id and done _id in order to obtain the values for constants - TRELLO_BOARD_ID, TRELLO_LIST_TODO_ID, TRELLO_LIST_DOING_ID and TRELLO_LIST_DONE_ID=
+4. Add PyTest as a dependancy of our project
+5. In order to run the test cases, need to install Selenium Python package
+6. We need to install Firefox as its the easier browser to test usign Selenium
+7. We need to download Gecko Driver executable and place it in the root of the project
 
 ## Running the App
 
@@ -56,3 +60,4 @@ You should see output similar to the following:
  * Debugger PIN: 226-556-590
 ```
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
+
