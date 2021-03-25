@@ -19,7 +19,7 @@
                 <form action="complete-item" method="post" class="frmItem">
                   <div class="form-example">
                     <input type="text" name="todo-id" id="todo-id" value="{{ item.id }}" hidden>
-                    <input type="submit" value="Complete item">
+                    <input type="submit" name="todo-complete" value="Complete item">
                   </div>
                 </form>
               {% endfor %}

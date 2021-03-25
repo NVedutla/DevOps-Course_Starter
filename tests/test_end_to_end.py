@@ -43,7 +43,11 @@ def list_trello_board(board_id):
         list_id = list["id"]
         list_name = list["name"]
         if list_name == "To Do":
-            os.environ['TRELLO_LIST_TODO_ID'] = list_id 
+            os.environ['TRELLO_LIST_TODO_ID'] = list_id
+        elif list_name == "Doing":
+            os.environ['TRELLO_LIST_DOING_ID'] = list_id
+        elif list_name == "Done":
+            os.environ['TRELLO_LIST_DONE_ID'] = list_id         
 
 def delete_trello_board(BOARD_ID):
     url = f"https://api.trello.com/1/boards/{BOARD_ID}"
@@ -97,5 +101,8 @@ def test_task_journey(driver, test_app):
     elem.send_keys("test to do")
     elem.send_keys(Keys.RETURN)
     time.sleep(1)
-    assert "test to do"  in driver.page_source
-    
+    assert "test to do - To Do"  in driver.page_source
+    elem = driver.find_element_by_name("todo-complete")
+    elem.click()
+    time.sleep(1) 
+    assert "test to do - Done"  in driver.page_source
