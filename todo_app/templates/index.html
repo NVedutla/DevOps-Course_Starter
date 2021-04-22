@@ -6,23 +6,58 @@
     <h1 class="display-4">To-Do App</h1>
     <p class="lead">Just another to-do app.</p>
   </div>
-
-  <div class="row">
-    <div class="col-md-12">
-      <h2>Items</h2>
-      <ul class="list-group mb-4">
-        <!-- List the todo items here -->
-        {% for item in todo_items %}
-          <li>{{ item.id }} - {{item.title}} - {{item.status}}</li>
-          <form action="complete-item" method="post" class="frmItem">
-            <div class="form-example">
-              <input type="text" name="todo-id" id="todo-id" value="{{ item.id }}" hidden>
-              <input type="submit" value="Complete item">
-            </div>
-          </form>
-        {% endfor %} 
-      </ul>
-    </div>
+  <table border="0" width="100%">
+    <tr>
+      <td>
+        <div class="row">
+          <div class="col-md-12">
+            <h2>Todo Items</h2>
+            <ul class="list-group mb-4">
+              <!-- List the todo items here -->
+              {% for item in view_model.todo_items %}
+                <li>{{item.title}} - {{item.status}}</li>
+                <form action="complete-item" method="post" class="frmItem">
+                  <div class="form-example">
+                    <input type="text" name="todo-id" id="todo-id" value="{{ item.id }}" hidden>
+                    <input type="submit" name="todo-complete" value="Complete item">
+                  </div>
+                </form>
+              {% endfor %}
+            </ul>
+        </td>
+        <td>
+          <h2>Doing Items</h2>
+          <ul class="list-group mb-4">
+            <!-- List the todo items here -->
+            {% for item in view_model.doing_items %}
+              <li>{{item.title}} - {{item.status}}</li>
+              <form action="complete-item" method="post" class="frmItem">
+                <div class="form-example">
+                  <input type="text" name="todo-id" id="todo-id" value="{{ item.id }}" hidden>
+                  <input type="submit" value="Complete item">
+                </div>
+              </form>
+            {% endfor %}
+          </ul>
+        </td>
+        <td>  
+          <h2>Done Items</h2>
+          <ul class="list-group mb-4">
+            <!-- List the todo items here -->
+            {% for item in view_model.done_items %}
+              <li>{{item.title}} - {{item.status}}</li>
+              <form action="complete-item" method="post" class="frmItem">
+                <div class="form-example">
+                  <input type="text" name="todo-id" id="todo-id" value="{{ item.id }}" hidden>
+                  <input type="submit" value="Complete item">
+                </div>
+              </form>
+            {% endfor %}
+          </ul>
+        </div>
+      </td>
+    </tr>
+  </table>
    <div>
       <form action="additem" method="post" class="frmItem">
         <div class="form-example">
